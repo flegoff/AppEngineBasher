@@ -16,7 +16,7 @@ class XMPPHandler(webapp.RequestHandler):
 		message = xmpp.Message(self.request.POST)
 		logging.info("[basher] message is /%s/" % message.body)
 
-		quote = Quote()
+		quote = basherc.Quote()
 		
 		reg = re.compile('^\&([^\&]+)\&([^\&]+)\&')
 		m = reg.match(message.body)
