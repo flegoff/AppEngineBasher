@@ -1,0 +1,16 @@
+<div id="content">
+
+	{% for quote in quotes %}
+		<a href="/quote/{{ quote.key }}">#</a>
+		<b>{{ quote.author_original }}</b> said at {{ quote.date_quote|date:"F Y, j" }}:
+			<blockquote>{{ quote.content }}</blockquote>
+		<div style="text-align: right">
+			reported by <span class="author">{{ quote.author_clean }}</span>
+		</div>
+	{% endfor %}
+	
+	{% if lonelymode %}
+		And now, do you want to <a href="/">see more quotes</a> ?
+	{% endif %}
+
+</div>
