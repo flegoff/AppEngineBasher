@@ -124,7 +124,7 @@ class XMPPHandler(webapp.RequestHandler):
 			logging.info("[basher] message stored")
 			message.reply("Thank you ! You may want to check %s now." % self.request.host_url)
 		except:
-			logging.info("[basher] message discarded (%s)" % message.content)
+			logging.info("[basher] message discarded (f=%s,c=%s)" % message.sender, message.body)
 			message.reply("oops... please format your message this way : &author name&quote& . For example : &Douglas Adams&Don't Panic&")
 		
 # ---
