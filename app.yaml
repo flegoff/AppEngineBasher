@@ -9,6 +9,12 @@ inbound_services:
 handlers:
 - url: /css
   static_dir: css
+  
+- url: /_ah/xmpp/message/chat/
+  script: xmpp.py
+
+- url: /admin/.*
+  script: admin.py
       
 - url: .*
   script: main.py

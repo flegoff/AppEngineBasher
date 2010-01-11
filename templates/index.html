@@ -1,11 +1,19 @@
 <div id="content">
-
+	{% if user %}
+		<div style="text-align: right">Logged in as <strong>{{user}}</strong></div>
+	{% endif %}
 	{% for quote in quotes %}
 		<a href="/quote/{{ quote.key }}">#</a>
 		<b>{{ quote.author_original }}</b> said at {{ quote.date_quote|date:"F Y, j" }}:
 			<blockquote>{{ quote.content }}</blockquote>
 		<div style="text-align: right">
-			reported by <span class="author">{{ quote.author_clean }}</span>
+				reported by <span class="author">
+				{% if not adminmode %}
+					{{ quote.author_clean }}
+				{% else %}
+					{{ quote.author }} -- <a href="/admin/delete?id={{ quote.key }}">(del)</a>
+				{% endif %}
+				</span>
 		</div>
 	{% endfor %}
 	
