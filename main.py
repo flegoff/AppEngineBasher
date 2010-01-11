@@ -23,7 +23,7 @@ class Quote(db.Model):
 		try:
 			reg = re.compile('^(.+@)')
 			m = reg.match(self.author)
-			return "%s..." % m.group(1)
+			return "%s" % m.group(1)
 		except:
 			return "Anonymous."
 	
@@ -111,14 +111,21 @@ class ViewQuote(webapp.RequestHandler):
 class XMPPHandler(webapp.RequestHandler):
 	def post(self):
 		message = xmpp.Message(self.request.POST)
-		logging.info("[xmpp] new msg received from %s" % message.sender)
 		quote = Quote()
-		quote.author = message.sender
-		quote.author_original = "ME"
-		quote.content = message.body
-		quote.put()
-		logging.info("[basher] new message stored")
-		message.reply("Thank you ! You may want to check %s now." % self.request.host_url)
+		
+		reg = re.compile('^&([^&]+)&([^&]+)&')
+		m = reg.match(self.request.path)
+		
+		try :
+			quote.author = message.sender
+			quote.author_original = m.group(1)
+			quote.content = m.group(2)
+			quote.put()
+			logging.info("[basher] message stored")
+			message.reply("Thank you ! You may want to check %s now." % self.request.host_url)
+		except:
+			logging.info("[basher] message discarded (%s)" % message.content)
+			message.reply("oops... please format your message this way : &author name&quote& . For example : &Douglas Adams&Don't Panic&")
 		
 # ---
 
