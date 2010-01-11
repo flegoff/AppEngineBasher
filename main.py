@@ -111,10 +111,12 @@ class ViewQuote(webapp.RequestHandler):
 class XMPPHandler(webapp.RequestHandler):
 	def post(self):
 		message = xmpp.Message(self.request.POST)
+		logging.info("[basher] message is /%s/" % message.body)
+
 		quote = Quote()
 		
-		reg = re.compile('^&([^&]+)&([^&]+)&')
-		m = reg.match(self.request.path)
+		reg = re.compile('^\&([^\&]+)\&([^\&]+)\&')
+		m = reg.match(message.body)
 		
 		try :
 			quote.author = message.sender
@@ -124,8 +126,8 @@ class XMPPHandler(webapp.RequestHandler):
 			logging.info("[basher] message stored")
 			message.reply("Thank you ! You may want to check %s now." % self.request.host_url)
 		except:
-			logging.info("[basher] message discarded (f=%s,c=%s)" % message.sender, message.body)
-			message.reply("oops... please format your message this way : &author name&quote& . For example : &Douglas Adams&Don't Panic&")
+			logging.info("[basher] message discarded (f=%s)" % message.sender)
+			message.reply("Oops... please format your message this way : &author name&quote& . For example : &Douglas Adams&Don't Panic&")
 		
 # ---
 
