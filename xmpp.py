@@ -1,6 +1,7 @@
 import re
 import cgi
 import logging
+import yaml
 
 import basherc
 
@@ -12,6 +13,10 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 # ---
 
 class XMPPHandler(webapp.RequestHandler):
+	
+	def __init__(self):
+		self.config = yaml.load(file('basher.yaml', 'r'))
+	
 	def post(self):
 		message = xmpp.Message(self.request.POST)
 		logging.info("[basher] message is /%s/" % message.body)
@@ -28,6 +33,15 @@ class XMPPHandler(webapp.RequestHandler):
 			quote.put()
 			logging.info("[basher] message stored")
 			message.reply("Thank you ! You may want to check %s now." % self.request.host_url)
+			
+			# sends a Jabber msg to the admins
+			if self.config['warn_xmpp']:
+				try :
+					logging.info("[basher] warning the admins : %s" % self.config['warn_xmpp'])
+					xmpp.send_message(self.config['warn_xmpp'], "A new quote was added : %s" % quote.content)
+				except:
+					loggin.warning("[basher] unable to warn")
+			
 		except:
 			logging.info("[basher] message discarded (f=%s)" % message.sender)
 			message.reply("Oops... please format your message this way : &author name&quote& . For example : &Douglas Adams&Don't Panic&")
