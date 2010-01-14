@@ -44,11 +44,11 @@ class ViewQuote(webapp.RequestHandler):
 			else:
 				raise Error
 				
-		# if somethings happens, it's probably the user's fault
+		# if somethings happens, lets's throw a 404
 		except:
 			self.error(404)
 			mt = basherc.MiniTemplateRenderer(self.response)
-			mt.fail
+			mt.fail()
 
 # ---
 

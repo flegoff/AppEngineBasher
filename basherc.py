@@ -53,7 +53,7 @@ class MiniTemplateRenderer():
 	def fail(self):
 		self.produce_header()
 		
-		path = os.path.join(os.path.dirname(__file__), 'templates/index.html')
+		path = os.path.join(os.path.dirname(__file__), 'templates/fail.html')
 		self.response.out.write(template.render(path, self.default_values))
 	
 		self.produce_footer()

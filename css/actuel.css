@@ -30,6 +30,11 @@ body {
 	padding-bottom: 20px;
 }
 
+#content h2 {
+	margin: 0;
+	padding: 15px;
+}
+
 #content blockquote {
 	background-color: #CDE2FF;
 	padding: 20px;

@@ -4,13 +4,24 @@ A quick and dirty bash.org clone for AppEngine. Deployment is quite
 easy and really quick : you just have to upload the repository's files
 to your AppEngine instance.
 
+The project files may be downloaded here :
+ - http://github.com/madflo/AppEngineBasher/archives/master
+
+Do not forget to insert your JID in "basher.yaml" and customize
+"templates/common/header.html". Then, you will be all set !
+
 == Adding a quote
 
- Talk to 'yourinstance'@appspot.com via Jabber or GTalk
+ Talk to yourinstance@appspot.com via Jabber or GTalk
+
+ yourinstance is the name of your appengine instance, the part of
+ the domain located before .appspot.com.
 
 == Admin
 
- Log-in on /admin with an administrator account registered in AppEngine.
+ Log-in on /admin with a developer account registered in the AppEngine
+ dashboard (Administration > Developers). New admins should be added
+ in the appengine dashboard first.
 
 == Contributors
 
