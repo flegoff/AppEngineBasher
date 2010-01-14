@@ -32,7 +32,9 @@ class AdminAction(webapp.RequestHandler):
 
 		if user and users.is_current_user_admin():
 			quote = db.get(self.request.get('id'))
+			logging.info("[admin] located quote by %s" % quote.author)
 			quote.delete()
+			logging.warning("[admin] quote was deleted by %s" % user.nickname())
 			self.redirect("/admin/")
 			
 		else:
