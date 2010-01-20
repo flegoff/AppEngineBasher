@@ -3,10 +3,12 @@
 		<div style="text-align: right">Logged in as <strong>{{user}}</strong></div>
 	{% endif %}
 	{% for quote in quotes %}
-		<a href="/quote/{{ quote.key }}">#</a>
-		<b>{{ quote.author_original }}</b> said at {{ quote.date_quote|date:"F Y, j" }}:
-			<blockquote>{{ quote.content }}</blockquote>
-		<div style="text-align: right">
+		<div class="header">
+			<a href="/quote/{{ quote.key }}">#</a>
+			<strong>{{ quote.author_original }}</strong> said at {{ quote.date_quote|date:"F Y, j" }}
+				<blockquote>{{ quote.content }}</blockquote>
+		</div>
+		<div class="reported_by">
 				reported by <span class="author">
 				{% if not adminmode %}
 					{{ quote.author_clean }}
