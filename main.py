@@ -12,7 +12,7 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 
 class MainPage(webapp.RequestHandler):
 	def get(self):
-		quotes = db.GqlQuery("SELECT * FROM Quote ORDER BY date_quote DESC LIMIT 50")
+		quotes = db.GqlQuery("SELECT * FROM Quote ORDER BY date_record DESC")
 		mt = basherc.MiniTemplateRenderer(self.response)
 		mt.produce_index({ 'quotes': quotes })
 
